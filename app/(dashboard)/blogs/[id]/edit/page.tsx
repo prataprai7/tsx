@@ -5,6 +5,11 @@ export default async function Page({
 }) {
     const { id } = await params;
     return (
-        <div>Blogs with Id: {id}</div>
+        <div>Edit Blog with ID: {id}</div>
     );
 }
+
+//create a path
+//person
+//person/blogs
+//person/blogs/:slug/edit
