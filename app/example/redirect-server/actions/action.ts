@@ -3,7 +3,7 @@
 import {redirect} from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export function redirectToLink(){
+export async function redirectToLink(){
     //logic (db updates/login/register)
     //client vs server redirect
     //server redirect: revalidate the path

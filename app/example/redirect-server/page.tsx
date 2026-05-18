@@ -1,7 +1,12 @@
-
+import { redirectToLink } from "./actions/action";
 
 export default function RedirectServer() {
     return (
-        <div></div>
+        <div>
+            <button
+                onClick={redirectToLink}>
+                Redirect using Server
+            </button>
+        </div>
     );
 }
