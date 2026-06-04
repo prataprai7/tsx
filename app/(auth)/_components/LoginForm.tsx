@@ -5,6 +5,8 @@ import { LoginFormData, loginSchema } from "@/app/(auth)/_components/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/lib/actions/auth-action";
+
 export default function LoginForm() {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState('');
@@ -25,7 +27,12 @@ export default function LoginForm() {
         startTransition(
             async () => {
                 try {
-                    
+                    const result = await loginUser(data);
+                    if(result.success){
+                        router.push("/dashboard");
+                    }else{
+                        setError(result.message || 'Login failed');
+                    }
                 } catch (error: any) {
                     setError(error?.message || 'Login failed');
                 }
