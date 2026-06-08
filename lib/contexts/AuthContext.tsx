@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { clearAuthCookies, getTokenCookie, getUserData } from "../cookies";
+import { clearAuthCookies, getTokenCookie, getUserInfoCookie } from "../cookies";
 import { useRouter } from "next/navigation";
 
 interface AuthContextProps {
@@ -12,10 +12,7 @@ interface AuthContextProps {
     loading: boolean;
     checkAuth: () => Promise<void>;
 }
-
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
-
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState<any>(null);
@@ -24,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const checkAuth = async () => {
         try {
             const token = await getTokenCookie();
-            const user = await getUserData();
+            const user = await getUserInfoCookie();
             setUser(user);
             setIsAuthenticated(!!token);
         } catch (err) {
