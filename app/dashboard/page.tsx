@@ -1,10 +1,26 @@
-import { getUserData } from "@/lib/cookies";
+"use client"; // to use context must be client
+// import { getUserInfoCookie } from "@/lib/cookies";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import Link from "next/link";
 export default async function DashboardPage() {
-    const userData = await getUserData();
+    // const userInfo = await getUserInfoCookie();
+    const { user, logout } = useAuth();
     return (
         <div>
-            <h1>Dashboard</h1>
-            <p>Welcome, {userData?.email || 'Not Logged In'}!</p>
+
+            {
+                user && <div>
+                    Welcome {user?.email || 'Not Logged In'}
+                    <button onClick={logout} >Logout</button>
+                </div>
+            }
+            {
+                !user && <div>
+                    <Link href="/login">Go to Login</Link>
+                    <Link href="/register">Go to Register</Link>
+                </div>
+            }
+
         </div>
     );
 }
