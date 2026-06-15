@@ -22,3 +22,15 @@ export const login = async (data: any) => {
         );
     }
 };
+
+export const whoami = async ()=>{
+    try{
+        const response = await axiosInstance.get(API.AUTH.WHOAMI);
+        return response.data;
+        // response.data -> response ko body
+    }catch (error: any) {
+        throw new Error(
+            error?.response?.data?.message || 'Fetch user info failed'
+        );
+    }
+}
