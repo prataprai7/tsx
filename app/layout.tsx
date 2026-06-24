@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
-
+import { ToastContainer } from "react-toastify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,9 +32,10 @@ export default function RootLayout({
         <div className="border p-4">Global Header</div>
         <AuthProvider>
           {children}
+          <ToastContainer />
         </AuthProvider>
         <div className="border p-4">Global Footer</div>
-        </body>
+      </body>
     </html>
   );
 }
