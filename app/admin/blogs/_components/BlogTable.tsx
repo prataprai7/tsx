@@ -1,6 +1,6 @@
 // app/admin/blogs/_components/BlogTable.tsx
 "use client";
-import DeleteModal from "@/app/(auth)/_components/DeleteModal";
+import DeleteModal from "@/app/_components/DeleteModal";
 import { handleDeleteBlog } from "@/lib/actions/admin/blog-action";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
