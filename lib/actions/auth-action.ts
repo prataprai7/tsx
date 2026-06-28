@@ -1,6 +1,7 @@
+// lib/actions/auth-action.ts
 "use server";  // from frontend server
 import { LoginFormData, RegisterFormData } from "@/app/(auth)/_components/schema";
-import { register, login, whoami, profileUpdate } from "@/lib/api/auth";
+import { register, login, whoami, profileUpdate, requestPasswordReset, resetPassword } from "@/lib/api/auth";
 import { setUserInfoCookie, setTokenCookie } from "../cookies";
 import { revalidatePath } from "next/cache";
 
@@ -85,3 +86,30 @@ export async function handleUpdateProfile(data: FormData) {
         return { success: false, message: error.message || 'Profile update failed' };
     }
 } 
+
+
+export const handleRequestPasswordReset = async (email: string) => {
+    try{
+        const result = await requestPasswordReset(email);
+        if(result.success){
+            return { success: true, message: result.message };
+        }else{
+            return { success: false, message: result.message || 'Request password reset failed' };    
+        }
+    }catch (error: Error | any){
+        return { success: false, message: error?.message || 'Request password reset failed' };
+    }
+}
+
+export const handleResetPassword = async (token: string, newPassword: string) => {
+    try{
+        const result = await resetPassword(token, newPassword);
+        if(result.success){
+            return { success: true, message: result.message };
+        }else{
+            return { success: false, message: result.message || 'Reset password failed' };    
+        }
+    }catch (error: Error | any){
+        return { success: false, message: error?.message || 'Reset password failed' };
+    }
+}
